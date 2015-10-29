@@ -1,0 +1,4 @@
+/vendor
+/storage/logs
+/storage/framework/cache
+.idea
