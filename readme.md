@@ -1,2 +1,1 @@
-Projeto Prático Web
-Biblioteca (PHP)
+Projeto Prático Web - Biblioteca (PHP)
