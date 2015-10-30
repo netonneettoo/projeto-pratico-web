@@ -1,4 +1,6 @@
 /vendor
-/storage/logs
-/storage/framework/cache
-.idea
+/node_modules
+Homestead.yaml
+Homestead.json
+#.env
+/.idea
