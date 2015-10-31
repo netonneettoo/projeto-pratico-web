@@ -8,12 +8,15 @@ class CreateGenresTable extends Migration
     /**
      * Run the migrations.
      *
+     * genero
+     *
      * @return void
      */
     public function up()
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('description');
             $table->timestamps();
         });
     }

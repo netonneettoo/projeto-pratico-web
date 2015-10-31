@@ -8,12 +8,18 @@ class CreateLoanItemsTable extends Migration
     /**
      * Run the migrations.
      *
+     * item_emprestimo
+     *
      * @return void
      */
     public function up()
     {
         Schema::create('loan_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('loan_id');
+            $table->unsignedInteger('copy_id');
+            $table->timestamp('return_prevision');
+            $table->timestamp('return_at')->nullable();
             $table->timestamps();
         });
     }

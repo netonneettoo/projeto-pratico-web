@@ -8,12 +8,15 @@ class CreateWorkTypesTable extends Migration
     /**
      * Run the migrations.
      *
+     * tipos_obra
+     *
      * @return void
      */
     public function up()
     {
         Schema::create('work_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('description');
             $table->timestamps();
         });
     }
