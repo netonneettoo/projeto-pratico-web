@@ -3,20 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkTypesTable extends Migration
+class CreateLoanItemsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * tb_tp_obra
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('work_types', function (Blueprint $table) {
-            $table->increments('id'); //cod_tp_obra
-            $table->string('description', 30)->nullable(); //tp_obra_nome
+        Schema::create('loan_items', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ class CreateWorkTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('work_types');
+        Schema::drop('loan_items');
     }
 }

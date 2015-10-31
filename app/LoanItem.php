@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class LoanItem extends Model
 {
-    // tb_secao
+    //
 }

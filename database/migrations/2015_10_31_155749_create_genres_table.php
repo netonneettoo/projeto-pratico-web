@@ -3,20 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSectionsTable extends Migration
+class CreateGenresTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * tb_secao
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
-            $table->increments('id'); //cod_secao
-            $table->string('description', 30); //se_nome
+        Schema::create('genres', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sections');
+        Schema::drop('genres');
     }
 }
