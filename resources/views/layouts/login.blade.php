@@ -56,6 +56,7 @@
             </main>
         </div>
 
+        <script type="application/javascript" src="/jquery/1.11.3/jquery.min.js"></script>
         <script type="application/javascript" src="/mld/material.js"></script>
         @yield('scripts')
 

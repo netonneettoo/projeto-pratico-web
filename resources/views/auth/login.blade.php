@@ -36,7 +36,7 @@
                 </div>
                 <div class="mdl-card__supporting-text">
 
-                    <form action="#">
+                    <form id="form-login" action="#">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input mdl-cell--12-col" type="text" id="sample3" />
                             <label class="mdl-textfield__label mdl-cell--12-col" for="sample3">Email</label>
@@ -88,4 +88,12 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="application/javascript">
+        $(document).ready(function() {
+            alert('ok');
+        });
+    </script>
 @endsection
