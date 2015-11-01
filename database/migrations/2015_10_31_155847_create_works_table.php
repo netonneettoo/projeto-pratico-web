@@ -17,7 +17,7 @@ class CreateWorksTable extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->unsignedInteger('publication_year', 4);
+            $table->unsignedInteger('publication_year');
             $table->double('price', 6, 2);
             $table->string('isbn13');
             $table->unsignedInteger('publisher_id');
@@ -29,7 +29,6 @@ class CreateWorksTable extends Migration
             $table->foreign('work_type_id')->references('id')->on('work_types');
             $table->unique('isbn13');
             $table->unique('title');
-            $table->unique(array('work_id', 'user_id'));
         });
     }
 
