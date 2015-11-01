@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -22,6 +23,9 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+//    protected $redirectPath = '/';
+//    protected $loginPath = '/auth/login';
 
     /**
      * Create a new authentication controller instance.
@@ -62,4 +66,18 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+
+    public function authenticate($data, $remember = false)
+    {
+        //$data = ['email' => $email, 'password' => $password];
+        if (Auth::attempt($data, $remember)) {
+            // Authentication passed...
+            return redirect()->intended('dashboard');
+        }
+    }*/
 }
