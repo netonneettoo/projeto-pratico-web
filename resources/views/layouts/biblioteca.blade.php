@@ -10,6 +10,9 @@
                 height: 39px;
                 background: url('/img/logo.png') #FFFFFF;
             }
+            .color-white {
+                color: #FFFFFF;
+            }
         </style>
         @yield('styles')
     </head>
@@ -28,16 +31,17 @@
                         {{--<a class="mdl-navigation__link" href="">Link</a>--}}
                     </nav>
 
-                    {{--<!-- Right aligned menu below button -->--}}
-                    {{--<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">--}}
-                    {{--<i class="material-icons">more_vert</i>--}}
-                    {{--</button>--}}
-                    {{--<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">--}}
-                    {{--<li disabled class="mdl-menu__item">Username</li>--}}
-                    {{--<li class="mdl-menu__item">Action</li>--}}
-                    {{--<li class="mdl-menu__item">Some Action</li>--}}
-                    {{--<li class="mdl-menu__item">Another Action</li>--}}
-                    {{--</ul>--}}
+                    <!-- Right aligned menu below button -->
+                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button color-white">
+                        {{ Auth::user()->name }}
+                        {{--<i class="material-icons">more_vert</i>--}}
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                    {{--<li disabled class="mdl-menu__item">Name</li>--}}
+                    <li class="mdl-menu__item link-logout">
+                        Logout
+                    </li>
+                    </ul>
                 </div>
             </header>
             {{--<div class="mdl-layout__drawer">--}}
@@ -58,6 +62,14 @@
 
         <script type="application/javascript" src="/jquery/1.11.3/jquery.min.js"></script>
         <script type="application/javascript" src="/mld/material.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.link-logout').click(function(evt) {
+                    evt.preventDefault();
+                    window.location.assign('/auth/logout');
+                });
+            });
+        </script>
         @yield('scripts')
 
     </body>

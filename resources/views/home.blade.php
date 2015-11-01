@@ -8,7 +8,7 @@
     <div class="mdl-grid padding-login">
         <div class="mdl-cell mdl-cell--12-col">
 
-            nem parou pra pensar...
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt minima porro provident reiciendis. At aut delectus dolores minima officia. A at commodi doloribus ea esse harum hic ipsam, nobis possimus.
 
         </div>
     </div>
