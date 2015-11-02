@@ -11,12 +11,12 @@
 |
 */
 
+// Public routes
+Route::get('/', 'HomeController@index');
+
 Route::group(['middleware' => 'auth'], function() {
-
-    Route::get('/', function () {
-        return view('home');
-    });
-
+    // Private routes
+    Route::resource('/emprestimos', 'LoanController');
 });
 
 // Authentication routes...
