@@ -16,7 +16,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return 'emprestimos';
+        return view('loan.index');
     }
 
     /**
