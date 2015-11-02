@@ -8,17 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/mld/material.min.css">
-    <style>
-        .clear-both {
-            clear:both;
-        }
-        .link-logo {
-            padding: 5px 15px;
-        }
-        .mdl-textfield {
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/biblioteca.css">
     @yield('styles')
 </head>
 <body>
@@ -65,13 +55,12 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="row">
-        @yield('content')
-    </div>
+    @yield('content')
 
     <script type="application/javascript" src="/jquery/1.11.3/jquery.min.js"></script>
     <script type="application/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/mld/material.js"></script>
+    <script type="application/javascript" src="/js/biblioteca.js"></script>
     @yield('scripts')
 
 </body>
