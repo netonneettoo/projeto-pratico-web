@@ -3,73 +3,61 @@
     <head>
         <title>Login</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/mld/material.min.css">
         <style>
-            .img-logo {
-                width: 125px;
-                height: 39px;
-                background: url('/img/logo.png') #FFFFFF;
-            }
-            .color-white {
-                color: #FFFFFF;
+            .link-logo {
+                padding: 5px 15px;
             }
         </style>
         @yield('styles')
     </head>
     <body>
 
-        <!-- Uses a header that scrolls with the text, rather than staying locked at the top -->
-        <div class="mdl-layout mdl-js-layout">
-            <header class="mdl-layout__header mdl-layout__header--scroll">
-                <div class="mdl-layout__header-row">
-                    <!-- Title -->
-                    <span class="mdl-layout-title img-logo"></span>
-                    <!-- Add spacer, to align navigation to the right -->
-                    <div class="mdl-layout-spacer"></div>
-                    <!-- Navigation -->
-                    <nav class="mdl-navigation">
-                        {{--<a class="mdl-navigation__link" href="">Link</a>--}}
-                    </nav>
 
-                    <!-- Right aligned menu below button -->
-                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button color-white">
-                        {{ Auth::user()->name }}
-                        {{--<i class="material-icons">more_vert</i>--}}
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                    {{--<li disabled class="mdl-menu__item">Name</li>--}}
-                    <li class="mdl-menu__item link-logout">
-                        Logout
-                    </li>
+                    <a class="navbar-brand link-logo" href="#">
+                        <img src="/img/logo.png" alt="logo">
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
                     </ul>
-                </div>
-            </header>
-            {{--<div class="mdl-layout__drawer">--}}
-            {{--<span class="mdl-layout-title">Title</span>--}}
-            {{--<nav class="mdl-navigation">--}}
-            {{--<a class="mdl-navigation__link" href="">Link</a>--}}
-            {{--<a class="mdl-navigation__link" href="">Link</a>--}}
-            {{--<a class="mdl-navigation__link" href="">Link</a>--}}
-            {{--<a class="mdl-navigation__link" href="">Link</a>--}}
-            {{--</nav>--}}
-            {{--</div>--}}
-            <main class="mdl-layout__content">
-                <div class="page-content">
-                    @yield('content')
-                </div>
-            </main>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="row">
+            @yield('content')
         </div>
 
         <script type="application/javascript" src="/jquery/1.11.3/jquery.min.js"></script>
+        <script type="application/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
         <script type="application/javascript" src="/mld/material.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('.link-logout').click(function(evt) {
-                    evt.preventDefault();
-                    window.location.assign('/auth/logout');
-                });
-            });
-        </script>
         @yield('scripts')
 
     </body>
