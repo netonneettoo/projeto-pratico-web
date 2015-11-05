@@ -18,8 +18,9 @@ class CreateWorksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->unsignedInteger('publication_year');
+            $table->string('edition');
             $table->double('price', 6, 2);
-            $table->string('isbn13');
+            $table->string('isbn');
             $table->unsignedInteger('publisher_id');
             $table->unsignedInteger('work_type_id');
             $table->enum('status', array('active', 'inactive'));
@@ -27,7 +28,7 @@ class CreateWorksTable extends Migration
 
             $table->foreign('publisher_id')->references('id')->on('publishers');
             $table->foreign('work_type_id')->references('id')->on('work_types');
-            $table->unique('isbn13');
+            $table->unique('isbn');
             $table->unique('title');
         });
     }

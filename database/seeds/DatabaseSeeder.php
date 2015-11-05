@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthorTableSeeder::class);
         $this->call(WorkTypeTableSeeder::class);
         $this->call(PublisherTableSeeder::class);
+        $this->call(WorkTableSeeder::class);
 
         Model::reguard();
     }
