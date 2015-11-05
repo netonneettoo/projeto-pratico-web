@@ -14,6 +14,10 @@
 // Public routes
 Route::get('/', 'HomeController@index');
 
+Route::get('/users/add', function() {
+    return view('users.add');
+});
+
 Route::group(['middleware' => 'auth'], function() {
     // Private routes
     Route::resource('/emprestimos', 'LoanController');
