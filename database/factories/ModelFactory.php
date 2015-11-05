@@ -18,3 +18,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => bcrypt('default')
     ];
 });
+
+$factory->define(App\Author::class, function (Faker\Generator $faker) {
+    $statusAuthor = array('active', 'inactive');
+    return [
+        'name' => $faker->name,
+        'status' => $statusAuthor[array_rand($statusAuthor)],
+    ];
+});
