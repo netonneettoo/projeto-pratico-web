@@ -14,9 +14,17 @@
 // Public routes
 Route::get('/', 'HomeController@index');
 
-Route::get('/users/add', function() {
-    return view('users.add');
-});
+//Route::get('/users/add', function() {
+//    return view('users.add');
+//});
+
+//Route::get('/test', function() {
+//    $user = \App\User::find(1);
+//    return $user->roles()->get();
+
+//    $role = \App\Role::where('name', 'admin')->first();
+//    return $role->users()->get()->toArray();
+//});
 
 Route::group(['middleware' => 'auth'], function() {
     // Private routes
