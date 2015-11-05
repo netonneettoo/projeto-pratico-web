@@ -20,9 +20,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Author::class, function (Faker\Generator $faker) {
-    $statusAuthor = array('active', 'inactive');
+    $status = array('active', 'inactive');
     return [
         'name' => $faker->name,
-        'status' => $statusAuthor[array_rand($statusAuthor)],
+        'status' => $status[array_rand($status)],
+    ];
+});
+
+$factory->define(App\WorkType::class, function (Faker\Generator $faker) {
+    return [
+        'description' => $faker->word,
+    ];
+});
+
+$factory->define(App\Publisher::class, function (Faker\Generator $faker) {
+    $status = array('active', 'inactive');
+    return [
+        'name' => $faker->name,
+        'status' => $status[array_rand($status)],
     ];
 });
