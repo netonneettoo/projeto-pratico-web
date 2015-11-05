@@ -43,12 +43,6 @@ class RoleTableSeeder extends Seeder
         $student->description  = 'User is allowed to rent, to reserve and to return the library copies';
         $student->save();
 
-        $student = new \App\Role();
-        $student->name         = 'employee';
-        $student->display_name = 'User Employee';
-        $student->description  = 'User is allowed to rent, to reserve and to return the library copies';
-        $student->save();
-
         // permissions
 
         $toLoan = new \App\Permission();
