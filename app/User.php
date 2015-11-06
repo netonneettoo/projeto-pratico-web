@@ -8,6 +8,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\Validator;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Model implements AuthenticatableContract,
@@ -37,4 +38,25 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    protected $rules = [
+        'name' => 'min:3|max:255',
+        'email' => 'email'
+    ];
+
+    protected $messages = [
+        //
+    ];
+
+    public function validate($data) {
+        return Validator::make($data, $this->rules, $this->messages);
+    }
+
+    public function store($data) {
+        $obj = new User();
+        $obj->name = $data['name'];
+        $obj->email = $data['email'];
+        $obj->password = bcrypt('default'); // set default password
+        return $obj;
+    }
 }

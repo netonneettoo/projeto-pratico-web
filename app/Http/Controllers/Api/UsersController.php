@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Services\UserService;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        $data = UserService::store($request->all());
+        return response()->json($data);
     }
 
     /**
