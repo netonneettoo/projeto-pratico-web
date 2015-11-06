@@ -40,6 +40,11 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     protected $rules = [
+        'name' => 'required|min:3|max:255',
+        'email' => 'required|email'
+    ];
+
+    protected $rulesPut = [
         'name' => 'min:3|max:255',
         'email' => 'email'
     ];
@@ -48,8 +53,16 @@ class User extends Model implements AuthenticatableContract,
         //
     ];
 
+    protected $messagesPut = [
+        //
+    ];
+
     public function validate($data) {
         return Validator::make($data, $this->rules, $this->messages);
+    }
+
+    public function validatePut($data) {
+        return Validator::make($data, $this->rulesPut, $this->messagesPut);
     }
 
     public function store($data) {
@@ -57,6 +70,14 @@ class User extends Model implements AuthenticatableContract,
         $obj->name = $data['name'];
         $obj->email = $data['email'];
         $obj->password = bcrypt('default'); // set default password
+        return $obj;
+    }
+
+    public function put($data, $id) {
+        $obj = User::find($id);
+        if (@isset($data['name']) && $data['name'] != null) $obj->name = $data['name'];
+        if (@isset($data['email']) && $data['email'] != null) $obj->email = $data['email'];
+        if (@isset($data['password']) && $data['password'] != null) $obj->password = bcrypt($data['password']);
         return $obj;
     }
 }

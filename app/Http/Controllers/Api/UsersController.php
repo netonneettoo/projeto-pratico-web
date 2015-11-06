@@ -81,7 +81,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = UserService::update($request->all(), $id);
+        return response()->json($data);
     }
 
     /**
@@ -92,6 +93,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = UserService::destroy($id);
+        return response()->json($data);
     }
 }
