@@ -14,10 +14,6 @@
 // Public routes
 Route::get('/', 'HomeController@index');
 
-//Route::get('/users/add', function() {
-//    return view('users.add');
-//});
-
 //Route::get('/test', function() {
 //    $user = \App\User::find(1);
 //    return $user->roles()->get();
@@ -26,12 +22,18 @@ Route::get('/', 'HomeController@index');
 //    return $role->users()->get()->toArray();
 //});
 
+
 Route::group(['middleware' => 'auth'], function() {
-    // Private routes
-    Route::resource('/emprestimos', 'LoanController');
+    Route::resource('/loans', 'LoanController');
 });
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+Route::group(['namespace' => 'Api', 'prefix' => 'api', 'middleware' => 'auth'], function() {
+    // Routes services
+    Route::resource('/users', 'UsersController');
+//    Route::resource('/loans', 'LoanController');
+});

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/mld/material.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/biblioteca.css">
     @yield('styles')
 </head>
@@ -60,6 +61,7 @@
     <script type="application/javascript" src="/jquery/1.11.3/jquery.min.js"></script>
     <script type="application/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/mld/material.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <script type="application/javascript" src="/js/biblioteca.js"></script>
     @yield('scripts')
 

@@ -1,22 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LoanController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('loans.index');
+        if ($request->has('name')) {
+            $data = User::with('roles')->where('name', 'like', '%'.$request->get('name').'%')->get();
+        } else {
+            $data = User::with('roles')->get();
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -48,7 +55,8 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = User::find($id);
+        return response()->json($data);
     }
 
     /**
