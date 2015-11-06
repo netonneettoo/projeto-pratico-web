@@ -32,7 +32,7 @@ Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-Route::group(['namespace' => 'Api', 'prefix' => 'api', 'middleware' => 'auth'], function() {
+Route::group(['namespace' => 'Api', 'prefix' => 'api', /*'middleware' => 'auth'*/], function() {
     // Routes services
     Route::resource('/users', 'UsersController');
 //    Route::resource('/loans', 'LoanController');
