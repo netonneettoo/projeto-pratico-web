@@ -8,7 +8,15 @@
     <div class="col-md-12">
         <div class="container">
 
-            admin users show
+            <div class="col-sm-5">
+                <h3>Admin Users Show</h3>
+
+                Name: <br />
+                <b>{{ $user->name }}</b> <br /><br />
+
+                Email: <br />
+                <b>{{ $user->email }}</b> <br /><br />
+            </div>
 
         </div>
     </div>
