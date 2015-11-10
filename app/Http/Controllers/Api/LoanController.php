@@ -49,7 +49,7 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        return Loan::getLoanActive($id);
     }
 
     /**
