@@ -33,6 +33,28 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
+                    @if(! Auth::check())
+                        {{--<li class="dropdown"><a href="/auth/login">Login</a></li>--}}
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Usuários <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/users/create">Novo</a></li>
+                                <li><a href="/admin/users">Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Empréstimos <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/loans/create">Novo</a></li>
+                                <li><a href="/admin/loans">Listar</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(! Auth::check())
@@ -43,9 +65,7 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Link 1</a></li>
-                                <li><a href="#">Link 2</a></li>
-                                <li><a href="#">Link 3</a></li>
+                                {{--<li><a href="#">Link 1</a></li>--}}
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/auth/logout">Logout</a></li>
                             </ul>

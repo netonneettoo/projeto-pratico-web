@@ -82,4 +82,9 @@ class User extends Model implements AuthenticatableContract,
         if (@isset($data['password']) && $data['password'] != null) $obj->password = bcrypt($data['password']);
         return $obj;
     }
+
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
+    }
 }

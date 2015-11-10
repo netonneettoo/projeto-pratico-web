@@ -58,6 +58,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $data = User::find($id);
+        $data->roles = $data->roles()->get();
         return response()->json($data);
     }
 

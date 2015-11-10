@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Loan;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return view('loans.index');
+        return view('admin.loans.index');
     }
 
     /**
@@ -26,7 +27,8 @@ class LoanController extends Controller
      */
     public function create()
     {
-        //
+        $loan = new Loan();
+        return view('admin.loans.create', compact('loan'));
     }
 
     /**

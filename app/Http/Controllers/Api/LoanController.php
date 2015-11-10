@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Loan;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        return Loan::getAllByStatus(Loan::STATUS_ACTIVE);
     }
 
     /**
