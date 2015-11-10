@@ -22,12 +22,9 @@ class Loan extends Model
     public static function getAllByStatus($status) {
         $all = self::where('status', $status)->get();
         for($i = 0; $i < count($all); $i++) {
-
-            $all[$i]->user = $all[$i]->loans()->get();
+            $all[$i]->user = $all[$i]->user()->first();
             $all[$i]->loanItems = $all[$i]->loanItems()->get();
-
             unset($all[$i]->user_id);
-
         }
         return $all;
     }
