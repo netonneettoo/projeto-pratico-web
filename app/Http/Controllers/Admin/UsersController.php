@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
@@ -18,7 +19,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $users = User::orderBy('id', 'DESC')->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -43,9 +44,23 @@ class UsersController extends Controller
     {
         $validation = (new User)->validate($request->all());
 
-        dd($validation->messages()->all());
+        if ($validation->fails()) {
+            return redirect('/admin/users/create')
+                ->withErrors($validation)
+                ->withInput();
+        }
 
-        return 'admin.users.store';
+        $user = (new User())->store($request->all());
+
+        if (! $user->save()) {
+            return redirect('/admin/users/create')
+                ->withErrors($validation)
+                ->withInput();
+        } else {
+            $users = User::orderBy('id', 'DESC')->paginate(10);
+            $success = 'Sucesso ao cadastrar o usuário.';
+            return view('admin.users.index', compact('users', 'success'));
+        }
     }
 
     /**
@@ -87,7 +102,25 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'admin.users.update';
+        $validation = (new User)->validatePut($request->all());
+
+        if ($validation->fails()) {
+            return redirect('/admin/users/'.$id.'/edit')
+                ->withErrors($validation)
+                ->withInput();
+        }
+
+        $user = (new User())->put($request->all(), $id);
+
+        if (! $user->save()) {
+            return redirect('/admin/users/'.$id.'/edit')
+                ->withErrors($validation)
+                ->withInput();
+        } else {
+            $users = User::orderBy('id', 'DESC')->paginate(10);
+            $success = 'Sucesso ao alterar o usuário.';
+            return view('admin.users.index', compact('users', 'success'));
+        }
     }
 
     /**

@@ -9,6 +9,15 @@
         <div class="container">
 
             <h3>Admin Users</h3>
+
+            @if (@isset($success))
+                <div class="alert alert-success">
+                    <ul style="padding-left:20px;">
+                        <li>{{ $success }}</li>
+                    </ul>
+                </div>
+            @endif
+
             <a href="/admin/users/create" class="btn btn-primary btn-xs" aria-label="Left Align" style="float:right;">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Usuário
             </a>

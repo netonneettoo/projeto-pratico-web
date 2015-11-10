@@ -23,6 +23,6 @@
     </div>
 @endif
 
-{!! Form::submit('Create New User', ['class' => 'btn btn-primary']) !!}
+{!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
 
 {!! Form::close() !!}
