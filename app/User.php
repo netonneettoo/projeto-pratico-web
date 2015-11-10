@@ -41,12 +41,14 @@ class User extends Model implements AuthenticatableContract,
 
     protected $rules = [
         'name' => 'required|min:3|max:255',
-        'email' => 'required|email'
+        'email' => 'required|email',
+        'password' => 'required|confirmed|min:6'
     ];
 
     protected $rulesPut = [
         'name' => 'min:3|max:255',
-        'email' => 'email'
+        'email' => 'email',
+        'password' => 'confirmed|min:6'
     ];
 
     protected $messages = [

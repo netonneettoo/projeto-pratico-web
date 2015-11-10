@@ -8,7 +8,7 @@
 
 <div class="form-group">
     {!! Form::label('email', 'Email:', ['class' => 'control-label']) !!}
-    {!! Form::text('email', $user->email, ['class' => 'form-control']) !!}
+    {!! Form::email('email', $user->email, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
@@ -16,9 +16,9 @@
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>
 
-@if($formMethod == 'put')
+@if(strtolower($formMethod) == 'put' || strtolower($formMethod) == 'post')
     <div class="form-group">
-        {!! Form::label('password_confirmation', 'Password:', ['class' => 'control-label']) !!}
+        {!! Form::label('password_confirmation', 'Password Confirmation:', ['class' => 'control-label']) !!}
         {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
     </div>
 @endif

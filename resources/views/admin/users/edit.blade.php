@@ -11,7 +11,17 @@
             <div class="col-sm-5">
                 <h3>Admin Users Edit</h3>
 
-                @include('admin.users.form', ['formUrl' => 'users/' . $user->id, 'formMethod' => 'put', 'user' => $user])
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @include('admin.users.form', ['formUrl' => '/admin/users/' . $user->id, 'formMethod' => 'PUT', 'user' => $user])
             </div>
 
         </div>

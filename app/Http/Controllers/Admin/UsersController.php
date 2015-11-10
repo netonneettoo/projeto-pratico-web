@@ -18,7 +18,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.users.index');
+        $users = User::paginate(10);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -40,6 +41,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = (new User)->validate($request->all());
+
+        dd($validation->messages()->all());
+
         return 'admin.users.store';
     }
 
