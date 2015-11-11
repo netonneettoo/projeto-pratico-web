@@ -121,16 +121,16 @@
                     escapeMarkup: function (markup) { return markup; },
                     minimumInputLength: 1,
                     templateResult: function(data) {
-                        console.warn(data);
-                        return data.id;
+                        if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
+                            return 'id=' + data.id + ' - title=' + data.work.title + ' - publication_year=' + data.work.publication_year + ' - edition=' + data.work.edition + ' - ' + data.work.publisher_id;
+                        }
+                        return '';
                     },
                     templateSelection: function(data) {
-//                        if (data.id != undefined && data.name != undefined) {
-//                            return data.id + ' - ' + data.name;
-//                        }
-//                        return 'Digite o nome de um usuário';
-                        console.info(data);
-                        return data.id;
+                        if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
+                            return data.id + ' - ' + data.work.title + ' - ' + data.work.publication_year + ' - ' + data.work.edition + ' - ' + data.work.publisher_id;
+                        }
+                        return 'Digite o nome de um usuário';
                     }
                 },
                 init: function() {

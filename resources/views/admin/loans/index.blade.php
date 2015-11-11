@@ -115,10 +115,13 @@
                     escapeMarkup: function (markup) { return markup; },
                     minimumInputLength: 3,
                     templateResult: function(data) {
-                        return data.id + ' - ' + data.name;
+                        if (data.id && data.name) {
+                            return data.id + ' - ' + data.name;
+                        }
+                        return '';
                     },
                     templateSelection: function(data) {
-                        if (data.id != undefined && data.name != undefined) {
+                        if (data.id && data.name) {
                             apiUsers.setTableCopies(data.id);
                             apiUsers.setFields('#' + data.id + ' - ' + data.name, apiUsers.countLoanedCopies(data.id), apiUsers.hasDebt(data.id));
                             apiUsers.setHrefBtnNew(data.id);
