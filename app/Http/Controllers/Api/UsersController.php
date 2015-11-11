@@ -24,6 +24,19 @@ class UsersController extends Controller
             $data = User::with('roles')->get();
         }
 
+        for($k = 0; $k < count($data); $k++) {
+            $data[$k]->loans = $data[$k]->loans()->get();
+            for($i = 0; $i < count($data[$k]->loans); $i++) {
+                $data[$k]->loans[$i]->loanItems = $data[$k]->loans[$i]->loanItems()->get();
+                for($j = 0; $j < count($data[$k]->loans[$i]->loanItems); $j++) {
+                    $data[$k]->loans[$i]->loanItems[$j]->copy = $data[$k]->loans[$i]->loanItems[$j]->copy()->first();
+                    $data[$k]->loans[$i]->loanItems[$j]->copy->work = $data[$k]->loans[$i]->loanItems[$j]->copy->work()->first();
+                    unset($data[$k]->loans[$i]->loanItems[$j]->copy->work_id);
+                    unset($data[$k]->loans[$i]->loanItems[$j]->copy_id);
+                }
+            }
+        }
+
         return response()->json($data);
     }
 
@@ -59,6 +72,7 @@ class UsersController extends Controller
     {
         $data = User::find($id);
         $data->roles = $data->roles()->get();
+
         $data->loans = $data->loans()->get();
         for($i = 0; $i < count($data->loans); $i++) {
             $data->loans[$i]->loanItems = $data->loans[$i]->loanItems()->get();
@@ -69,6 +83,7 @@ class UsersController extends Controller
                 unset($data->loans[$i]->loanItems[$j]->copy_id);
             }
         }
+
         return response()->json($data);
     }
 
