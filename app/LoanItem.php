@@ -13,6 +13,6 @@ class LoanItem extends Model
 
     public function copy()
     {
-        return $this->hasOne('App\Copy');
+        return $this->belongsTo('App\Copy');
     }
 }
