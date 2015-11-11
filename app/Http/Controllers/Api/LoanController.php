@@ -17,7 +17,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return Loan::getAllByStatus(Loan::STATUS_ACTIVE);
+        return Loan::getAll(Loan::STATUS_ACTIVE);
     }
 
     /**
