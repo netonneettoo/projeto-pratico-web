@@ -22,11 +22,12 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function() {
     // Routes screens
     Route::resource('/users', 'UsersController');
-    Route::resource('/loans', 'LoanController');
+    Route::resource('/loans', 'LoansController');
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api', /*'middleware' => 'auth'*/], function() {
     // Routes services
     Route::resource('/users', 'UsersController');
-    Route::resource('/loans', 'LoanController');
+    Route::resource('/loans', 'LoansController');
+    Route::resource('/copies', 'CopiesController');
 });

@@ -17,15 +17,13 @@
             <form action="#">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="col-sm-6">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="id2" />
-                                <label class="mdl-textfield__label" for="id2">Identificação</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <span id="user-name"></span><br/>
-                            <span id="loaned-copies"></span><br/>
+                        <div class="col-sm-12">
+                            <span id="user-name">
+                                #{{ $user->id }} - {{ $user->name }}
+                            </span><br/>
+                            <span id="loaned-copies">
+                                {{ $user->email }}
+                            </span><br/>
                             <span id="has-debt"></span>
                         </div>
                     </div>
@@ -36,11 +34,10 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="col-sm-12">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="id2" />
-                                <label class="mdl-textfield__label" for="id2">Pesquisar acervo pelo título</label>
-                            </div>
-                            <div style="float:right;">
+                            <select class="form-control loan-search-copies">
+                                <option value="" selected="selected"></option>
+                            </select>
+                            <div style="margin-top:20px;float:right;">
                                 <button class="btn btn-xs btn-success">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Realizar o Empréstimo
                                 </button>
@@ -98,4 +95,51 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+
+            var apiLoan = {
+                selectLoan: '.loan-search-copies',
+                optionsSelectUsers: {
+                    ajax: {
+                        url: '/api/copies',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                id: params.term,
+                                page: params.page
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1,
+                    templateResult: function(data) {
+                        console.warn(data);
+                        return data.id;
+                    },
+                    templateSelection: function(data) {
+//                        if (data.id != undefined && data.name != undefined) {
+//                            return data.id + ' - ' + data.name;
+//                        }
+//                        return 'Digite o nome de um usuário';
+                        console.info(data);
+                        return data.id;
+                    }
+                },
+                init: function() {
+                    $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
+                }
+            };
+
+            apiLoan.init();
+
+        });
+    </script>
 @endsection

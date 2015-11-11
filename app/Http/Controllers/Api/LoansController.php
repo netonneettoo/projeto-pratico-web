@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Loan;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LoanController extends Controller
+class LoansController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return view('admin.loans.index');
+        return Loan::getAll(Loan::STATUS_ACTIVE);
     }
 
     /**
@@ -27,8 +27,7 @@ class LoanController extends Controller
      */
     public function create()
     {
-        $loan = new Loan();
-        return view('admin.loans.create', compact('loan'));
+        //
     }
 
     /**
@@ -50,7 +49,7 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        return Loan::getLoanActive($id);
     }
 
     /**

@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Loan;
+use App\Copy;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LoanController extends Controller
+class CopiesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Loan::getAll(Loan::STATUS_ACTIVE);
+        $intSearch = intval($request->get('id'));
+        $data = array();
+        if ($request->has('id')) {
+            $all = Copy::where('id', 'like', '%' . $intSearch . '%')->get();
+        } else {
+            $all = Copy::all();
+        }
+        for($i = 0; $i < count($all); $i++) {
+            $all[$i]->work = $all[$i]->work()->first();
+            if (strpos($all[$i]->work->id, $intSearch) !== false) {
+                $data[] = $all[$i];
+            }
+            unset($all[$i]->work_id);
+        }
+        if (count($data) > 0)
+            return $data;
+        return $all;
     }
 
     /**
@@ -49,7 +65,7 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        return Loan::getLoanActive($id);
+        //
     }
 
     /**

@@ -18,6 +18,9 @@
         <div class="container">
 
             <div class="panel panel-default">
+                <a href="/admin/loans/create" class="btn btn-xs btn-success hide" id="btn-new-loan" style="float:right;margin-top:20px;margin-right:20px;">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo
+                </a>
                 <div class="panel-heading">
                     <h3 class="panel-title">Empréstimos</h3>
                 </div>
@@ -87,9 +90,10 @@
         $(document).ready(function() {
 
             var apiUsers = {
-                selectUsers: '.loan-search-user',
+                selectLoan: '.loan-search-user',
                 userCopies: $('#user-copies'),
                 userCopiesTable: $('#user-table-copies'),
+                btnNewLoan: $('#btn-new-loan'),
                 optionsSelectUsers: {
                     ajax: {
                         url: '/api/users',
@@ -117,6 +121,7 @@
                         if (data.id != undefined && data.name != undefined) {
                             apiUsers.setTableCopies(data.id);
                             apiUsers.setFields('#' + data.id + ' - ' + data.name, apiUsers.countLoanedCopies(data.id), apiUsers.hasDebt(data.id));
+                            apiUsers.setHrefBtnNew(data.id);
                             return data.id + ' - ' + data.name;
                         }
                         apiUsers.resetFields();
@@ -124,7 +129,14 @@
                     }
                 },
                 init: function() {
-                    $(apiUsers.selectUsers).select2(apiUsers.optionsSelectUsers);
+                    $(apiUsers.selectLoan).select2(apiUsers.optionsSelectUsers);
+                },
+                setHrefBtnNew: function(id) {
+                    var href = '/admin/loans/create';
+                    if (id != null && id != undefined) {
+                        href += '?u=' + id;
+                    }
+                    apiUsers.btnNewLoan.attr('href', href);
                 },
                 countLoanedCopies: function(id) {
                     return 'Possui ' + id + ' exemplar(es) alugado(s).';
@@ -138,6 +150,9 @@
                         $('#user-name').text(userName);
                         $('#loaned-copies').text(loanedCopies);
                         $('#has-debt').text(hasDebt);
+                        apiUsers.btnNewLoan.slideDown('slow', function() {
+                            apiUsers.btnNewLoan.removeClass('hide');
+                        });
                     });
                 },
                 resetFields: function() {
@@ -146,6 +161,9 @@
                         $('#loaned-copies').text('');
                         $('#has-debt').text('');
                         apiUsers.resetTableCopies();
+                        apiUsers.btnNewLoan.slideUp('slow', function() {
+                            apiUsers.btnNewLoan.removeClass('hide');
+                        });
                     });
                 },
                 setTableCopies: function(userId) {

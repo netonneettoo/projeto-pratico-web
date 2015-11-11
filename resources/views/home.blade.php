@@ -87,7 +87,7 @@
         $(document).ready(function() {
 
             var apiUsers = {
-                selectUsers: '.select2-users',
+                selectLoan: '.select2-users',
                 optionsSelectUsers: {
                     ajax: {
                         url: '/api/users',
@@ -118,7 +118,7 @@
                     }
                 },
                 init: function() {
-                    $(apiUsers.selectUsers).select2(apiUsers.optionsSelectUsers);
+                    $(apiUsers.selectLoan).select2(apiUsers.optionsSelectUsers);
                 }
             };
 
