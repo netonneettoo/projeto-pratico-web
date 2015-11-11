@@ -10,4 +10,9 @@ class LoanItem extends Model
     {
         return $this->belongsTo('App\Loan');
     }
+
+    public function copy()
+    {
+        return $this->hasOne('App\Copy');
+    }
 }

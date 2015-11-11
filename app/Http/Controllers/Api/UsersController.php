@@ -59,6 +59,14 @@ class UsersController extends Controller
     {
         $data = User::find($id);
         $data->roles = $data->roles()->get();
+        $data->loans = $data->loans()->get();
+        for($i = 0; $i < count($data->loans); $i++) {
+            $data->loans[$i]->loanItems = $data->loans[$i]->loanItems()->get();
+
+            for($j = 0; $j < count($data->loans[$i]->loanItems); $j++) {
+                $data->loans[$i]->loanItems[$j]->copy = $data->loans[$i]->loanItems[$j]->copy()->get();
+            }
+        }
         return response()->json($data);
     }
 
