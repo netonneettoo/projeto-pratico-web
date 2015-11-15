@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Loan;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -38,7 +39,13 @@ class LoansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $copies = $request->get('copies');
+        $user = User::find($request->get('user_id'));
+        if ($user == null) {
+            // return user
+        }
+        $copiesArray = json_decode($copies, true);
+        return $request->all();
     }
 
     /**
