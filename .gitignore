@@ -2,8 +2,8 @@
 /node_modules
 Homestead.yaml
 Homestead.json
-#.env.swo
-#.env.swp
+.env.swo
+.env.swp
 
 # ====== OS X ===========================================
 .DS_Store
