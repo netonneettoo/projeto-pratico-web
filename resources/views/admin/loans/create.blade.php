@@ -38,7 +38,7 @@
                                 <option value="" selected="selected"></option>
                             </select>
                             <div style="margin-top:20px;float:right;">
-                                <button class="btn btn-xs btn-success">
+                                <button class="btn btn-xs btn-success" id="submit-do-loan">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Realizar o Empréstimo
                                 </button>
                             </div>
@@ -96,10 +96,15 @@
 
 @section('scripts')
     <script>
+
+        var currentCopy = null;
+        var copies = [];
+
         $(document).ready(function() {
 
             var apiLoan = {
                 selectLoan: '.loan-search-copies',
+                submitDoLoan: $('#submit-do-loan'),
                 optionsSelectUsers: {
                     ajax: {
                         url: '/api/copies',
@@ -122,7 +127,8 @@
                     minimumInputLength: 1,
                     templateResult: function(data) {
                         if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
-                            return 'id=' + data.id + ' - title=' + data.work.title + ' - publication_year=' + data.work.publication_year + ' - edition=' + data.work.edition + ' - ' + data.work.publisher_id;
+                            currentCopy = data;
+                            return 'id:' + data.id + ' - title:' + data.work.title + ' - publication_year:' + data.work.publication_year + ' - edition:' + data.work.edition + ' - ' + data.work.publisher_id;
                         }
                         return '';
                     },
@@ -130,11 +136,19 @@
                         if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
                             return data.id + ' - ' + data.work.title + ' - ' + data.work.publication_year + ' - ' + data.work.edition + ' - ' + data.work.publisher_id;
                         }
-                        return 'Digite o nome de um usuário';
+                        return 'Digite o código de um exemplar';
                     }
+                },
+                doLoan: function(data) {
+                    copies.push(data);
                 },
                 init: function() {
                     $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
+                    apiLoan.submitDoLoan.click(function(evt) {
+                        evt.preventDefault();
+                        if (currentCopy != null)
+                            apiLoan.doLoan(currentCopy);
+                    });
                 }
             };
 
