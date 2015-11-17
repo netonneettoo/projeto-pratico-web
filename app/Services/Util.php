@@ -2,21 +2,20 @@
 
 class Util
 {
-    static $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTSUVWXYZ';
-    static $numbers = '0123456789';
-    static $specialCharacters = '-_@#$%&*';
+    const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTSUVWXYZ';
 
-    static function getArrayFromString($string) {
+    public static function getArrayFromString($string) {
         return str_split($string, 1);
     }
 
-    static function generateName($quantity = 1) {
-        $array = self::getArrayFromString(self::$letters);
+    public static function generateName($quantity) {
+        $array = self::getArrayFromString(self::LETTERS);
         $arrayResult = $array[array_rand($array, $quantity)];
         $data = array();
         foreach($arrayResult as $i) {
             $data[] = $array[$i];
         }
-        return implode('', $data);
+        $implode = implode('', $data);
+        return $implode;
     }
 }

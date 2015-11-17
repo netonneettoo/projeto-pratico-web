@@ -19,37 +19,37 @@ class UserTableSeeder extends Seeder
         $admin->attachRole(\App\Role::where('name', 'admin')->first());
 
         for($i = 0; $i < 10; $i++) {
-            $admin = new \App\User();
-            $admin->name = \App\Services\Util::generateName(10);
-            $admin->email = \App\Services\Util::generateName(10) . '@facevol.edu.br';
-            $admin->password = bcrypt('librarian');
-            $admin->save();
-            $admin->attachRole(\App\Role::where('name', 'librarian')->first());
+            $user = new \App\User();
+            $user->name = 'librarian-' . $i;
+            $user->email = 'librarian-' . $i . '@facevol.edu.br';
+            $user->password = bcrypt('librarianfacevol');
+            $user->save();
+            $user->attachRole(\App\Role::where('name', 'librarian')->first());
         }
 
         for($i = 0; $i < 10; $i++) {
             $user = new \App\User();
-            $user->name = \App\Services\Util::generateName(10);
-            $user->email = \App\Services\Util::generateName(10) . '@facevol.edu.br';
-            $user->password = bcrypt('employee');
+            $user->name = 'employee-' . $i;
+            $user->email = 'employee-' . $i . '@facevol.edu.br';
+            $user->password = bcrypt('employeefacevol');
             $user->save();
             $user->attachRole(\App\Role::where('name', 'employee')->first());
         }
 
         for($i = 0; $i < 10; $i++) {
             $user = new \App\User();
-            $user->name = \App\Services\Util::generateName(10);
-            $user->email = \App\Services\Util::generateName(10) . '@facevol.edu.br';
-            $user->password = bcrypt('teacher');
+            $user->name = 'teacher-' . $i;
+            $user->email = 'teacher-' . $i . '@facevol.edu.br';
+            $user->password = bcrypt('teacherfacevol');
             $user->save();
             $user->attachRole(\App\Role::where('name', 'teacher')->first());
         }
 
         for($i = 0; $i < 10; $i++) {
             $user = new \App\User();
-            $user->name = \App\Services\Util::generateName(10);
-            $user->email = \App\Services\Util::generateName(10) . '@facevol.edu.br';
-            $user->password = bcrypt('student');
+            $user->name = 'student-' . $i;
+            $user->email = 'student-' . $i . '@facevol.edu.br';
+            $user->password = bcrypt('studentfacevol');
             $user->save();
             $user->attachRole(\App\Role::where('name', 'student')->first());
         }
