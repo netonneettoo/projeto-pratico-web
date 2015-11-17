@@ -76,12 +76,9 @@
 @section('scripts')
     <script>
 
-        var apiLoan;
-
         $(document).ready(function() {
 
-            //var apiLoan = {
-            apiLoan = {
+            var apiLoan = {
                 selectLoan: '.loan-search-copies',
                 submitAddCopy: $('#submit-add-copy'),
                 submitDoLoan: $('#submit-do-loan'),
@@ -187,6 +184,16 @@
                 removeHeadersTable: function() {
                     $(apiLoan.tableLoanItems + ' thead').hide('slow').html('');
                 },
+                submitAjaxLoan: function() {
+                    $.ajax({
+                        url: '/admin/loans',
+                        method: 'POST',
+                        data: { 'user_id': apiLoan.currentUser, 'loan_items': apiLoan.loanItems },
+                        dataType: 'json'
+                    }).done(function(data) {
+                        console.warn(data);
+                    });
+                },
                 init: function() {
                     $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
                     apiLoan.submitAddCopy.click(function(evt) {
@@ -205,7 +212,7 @@
                     });
                     apiLoan.submitDoLoan.click(function(evt) {
                         evt.preventDefault();
-                        console.warn('Verificar para realizar o emprestimo e chamar o serviço para tal...');
+                        apiLoan.submitAjaxLoan();
                     });
                 }
             };

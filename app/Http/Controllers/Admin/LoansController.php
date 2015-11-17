@@ -30,7 +30,6 @@ class LoansController extends Controller
     public function create(Request $request)
     {
         $id = intval($request->get('u'));
-        //$id = Crypt::decrypt(intval($request->get('u')));
         $user = User::find($id);
         if ($user) {
             $loan = new Loan();
@@ -48,7 +47,16 @@ class LoansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->get('user_id'));
+        if ($user == null) {
+            return 'Usuário não existe.';
+        } else {
+            if ($user->hasRole(['employee', 'teacher', 'student'])) {
+                return array('pode alugar');
+            } else {
+                return array('nao pode alugar');
+            }
+        }
     }
 
     /**
