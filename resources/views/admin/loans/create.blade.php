@@ -55,7 +55,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <table class="table table-responsive">
+                        <table class="table table-responsive" id="table-loan-items">
                             <thead>
                                 <tr>
                                     <td>Exemplar</td>
@@ -64,25 +64,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for($i=0;$i<3;$i++)
-                                    <tr>
-                                        <td>
-                                            Titulo: Introducao a informatica {{$i}} <br/>
-                                            Autor: Alberto Einstein
-                                        </td>
-                                        <td>
-                                            0{{$i}}/0{{$i}}/200{{$i}}
-                                        </td>
-                                        <td class="td-actions">
-                                            <button class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Renovar">
-                                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                            </button>
-                                            <button class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Devolver">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endfor
+                                {{--@for($i=0;$i<3;$i++)--}}
+                                    {{--<tr>--}}
+                                        {{--<td>--}}
+                                            {{--Titulo: Introducao a informatica {{$i}} <br/>--}}
+                                            {{--Autor: Alberto Einstein--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--0{{$i}}/0{{$i}}/200{{$i}}--}}
+                                        {{--</td>--}}
+                                        {{--<td class="td-actions">--}}
+                                            {{--<button class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Renovar">--}}
+                                                {{--<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>--}}
+                                            {{--</button>--}}
+                                            {{--<button class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Devolver">--}}
+                                                {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
+                                            {{--</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--@endfor--}}
                             </tbody>
                         </table>
                     </div>
@@ -97,14 +97,18 @@
 @section('scripts')
     <script>
 
-        var currentCopy = null;
-        var copies = [];
+        var apiLoan;
 
         $(document).ready(function() {
 
-            var apiLoan = {
+            //var apiLoan = {
+            apiLoan = {
                 selectLoan: '.loan-search-copies',
                 submitDoLoan: $('#submit-do-loan'),
+                tableLoanItems: $('#table-loan-items'),
+                currentUser: parseInt('{{ $user->id }}'),
+                currentCopy: null,
+                loanItems: [],
                 optionsSelectUsers: {
                     ajax: {
                         url: '/api/copies',
@@ -139,15 +143,30 @@
                         return 'Digite o código de um exemplar';
                     }
                 },
-                doLoan: function(data) {
-                    copies.push(data);
+                addLoanItem: function(id) {
+                    if (apiLoan.loanItems.indexOf(id) == -1)
+                        apiLoan.loanItems.push(id);
+                },
+                removeLoanItem: function(id) {
+                    apiLoan.loanItems = apiLoan.loanItems.filter(function(eachItemId) {
+                        if (id != eachItemId) {
+                            return true;
+                        }
+                        return false;
+                    });
+                },
+                addRowTable: function() {
+                    //
+                },
+                removeRowTable: function() {
+                    //
                 },
                 init: function() {
                     $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
                     apiLoan.submitDoLoan.click(function(evt) {
                         evt.preventDefault();
                         if (currentCopy != null)
-                            apiLoan.doLoan(currentCopy);
+                            apiLoan.addLoanItem(currentCopy);
                     });
                 }
             };
