@@ -27,6 +27,7 @@
                     <tr>
                         <th>Nome</th>
                         <th>Email</th>
+                        <th>Telephone</th>
                         <th width="170px"></th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->telephone }}</td>
                                 <td class="text-right">
                                     <a href="/admin/users/{{ $user->id }}" class="btn btn-default btn-xs" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Visualizar

@@ -16,6 +16,9 @@
 
                 Email: <br />
                 <b>{{ $user->email }}</b> <br /><br />
+
+                Telephone: <br />
+                <b>{{ $user->telephone }}</b> <br /><br />
             </div>
 
         </div>
