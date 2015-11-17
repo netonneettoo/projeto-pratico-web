@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(AuthorTableSeeder::class);
-        $this->call(WorkTypeTableSeeder::class);
-        $this->call(PublisherTableSeeder::class);
-        $this->call(WorkTableSeeder::class);
+        //$this->call(AuthorTableSeeder::class);
+        //$this->call(WorkTypeTableSeeder::class);
+        //$this->call(PublisherTableSeeder::class);
+        //$this->call(WorkTableSeeder::class);
 
         Model::reguard();
     }
