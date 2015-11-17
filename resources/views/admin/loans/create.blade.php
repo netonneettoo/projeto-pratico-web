@@ -156,7 +156,7 @@
                     html += '</td>';
                     if (apiLoan.loanItems.length == 1) {
                         apiLoan.addHeadersTable();
-                        apiLoan.panelTableLoan.slideDown('slow');
+                        apiLoan.panelTableLoan.show('slow');
                     }
                     $(apiLoan.tableLoanItems + ' tbody').append(html);
 
@@ -165,26 +165,27 @@
                     $(btn).parent().parent().remove();
                     apiLoan.removeLoanItem(dataCopyId);
                     if (apiLoan.loanItems.length == 0) {
-                        apiLoan.panelTableLoan.slideUp('slow', function() {
-                            apiLoan.removeHeadersTable();
-                        });
+                        apiLoan.panelTableLoan.hide('slow');
+                        apiLoan.removeHeadersTable();
                     }
                 },
                 addHeadersTable: function() {
-                    var html = '';
-                    html += '<tr>';
-                    html += '   <th>';
-                    html += '       Exemplar';
-                    html += '   </th>';
-                    html += '   <th>';
-                    html += '       Previsão de devolução';
-                    html += '   </th>';
-                    html += '   <th></th>';
-                    html += '</tr>';
-                    $(apiLoan.tableLoanItems + ' thead').append(html);
+                    $(apiLoan.tableLoanItems + ' thead').show('slow', function() {
+                        var html = '';
+                        html += '<tr>';
+                        html += '   <th>';
+                        html += '       Exemplar';
+                        html += '   </th>';
+                        html += '   <th>';
+                        html += '       Previsão de devolução';
+                        html += '   </th>';
+                        html += '   <th></th>';
+                        html += '</tr>';
+                        $(this).append(html);
+                    });
                 },
                 removeHeadersTable: function() {
-                    $(apiLoan.tableLoanItems + ' thead').html('');
+                    $(apiLoan.tableLoanItems + ' thead').hide('slow').html('');
                 },
                 init: function() {
                     $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
@@ -201,6 +202,10 @@
                                 console.warn('O exemplar informado já faz parte da lista para empréstimo.');
                             }
                         }
+                    });
+                    apiLoan.submitDoLoan.click(function(evt) {
+                        evt.preventDefault();
+                        console.warn('Verificar para realizar o emprestimo e chamar o serviço para tal...');
                     });
                 }
             };
