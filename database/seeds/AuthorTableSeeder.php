@@ -11,8 +11,13 @@ class AuthorTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Author::class, 10)->create()->each(function($obj) {
-            $obj->save();
-        });
+        $status = array('active', 'inactive');
+
+        for($i = 0; $i < 10; $i++) {
+            $author = new \App\Author();
+            $author->name = 'author-' . $i;
+            $author->status = $status[array_rand($status)];
+            $author->save();
+        }
     }
 }

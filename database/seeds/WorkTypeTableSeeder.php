@@ -11,8 +11,10 @@ class WorkTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\WorkType::class, 10)->create()->each(function($obj) {
-            $obj->save();
-        });
+        for($i = 0; $i < 10; $i++) {
+            $workType = new \App\WorkType();
+            $workType->description = 'workType' . $i;
+            $workType->save();
+        }
     }
 }
