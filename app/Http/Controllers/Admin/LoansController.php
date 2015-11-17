@@ -52,7 +52,11 @@ class LoansController extends Controller
             return 'Usuário não existe.';
         } else {
             if ($user->hasRole(['employee', 'teacher', 'student'])) {
-                return array('pode alugar');
+                // TODO Verificar se o usuário tem débito com a biblioteca/faculdade
+                // TODO Verificar quantos examplares o usuário pode alugar
+                // TODO Verificar o status do usuário
+                $loan = (new Loan())->store($request->all());
+                return array('pode alugar', $loan);
             } else {
                 return array('nao pode alugar');
             }
