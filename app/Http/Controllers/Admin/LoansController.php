@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Loan;
+use App\LoanItem;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -56,9 +57,21 @@ class LoansController extends Controller
                 // TODO Verificar quantos examplares o usuário pode alugar
                 // TODO Verificar o status do usuário
                 $loan = (new Loan())->store($request->all());
-                return array('pode alugar', $loan);
+                $loan->save();
+
+                $loanItems = array();
+                foreach($request->get('loan_items') as $copyId) {
+                    $loanItem = (new LoanItem())->store(array('loan_id' => $loan->id, 'copy_id' => intval($copyId), 'return_prevision' => date('2015-12-25 01:02:03')));
+                    if ($loanItem->save()) {
+                        $loanItems[] = $loanItem;
+                    }
+                }
+
+                // pode alugar
+                return array('success', $loan, $loanItems);
             } else {
-                return array('nao pode alugar');
+                // nao pode alugar
+                return array('error');
             }
         }
     }
