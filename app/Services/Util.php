@@ -2,7 +2,7 @@
 
 class Util
 {
-    static $letters = 'abcdefghijklmnopqrstuvwxyz';
+    static $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTSUVWXYZ';
     static $numbers = '0123456789';
     static $specialCharacters = '-_@#$%&*';
 
