@@ -27,7 +27,7 @@ class UsersController extends Controller
         for($k = 0; $k < count($data); $k++) {
             $data[$k]->loans = $data[$k]->loans()->get();
             for($i = 0; $i < count($data[$k]->loans); $i++) {
-                $data[$k]->loans[$i]->loanItems = $data[$k]->loans[$i]->loanItems()->get();
+                $data[$k]->loans[$i]->loanItems = $data[$k]->loans[$i]->loanItems()->where('returned_at', null)->get();
                 for($j = 0; $j < count($data[$k]->loans[$i]->loanItems); $j++) {
                     $data[$k]->loans[$i]->loanItems[$j]->copy = $data[$k]->loans[$i]->loanItems[$j]->copy()->first();
                     $data[$k]->loans[$i]->loanItems[$j]->copy->work = $data[$k]->loans[$i]->loanItems[$j]->copy->work()->first();
