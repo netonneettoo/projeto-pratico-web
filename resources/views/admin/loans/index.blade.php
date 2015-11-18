@@ -225,6 +225,7 @@
                         data: { 'loan_item_id': loanItemId },
                         dataType: 'json'
                     }).done(function(data) {
+                        notifyOnlyMessage('Renovado com sucesso!', 'success');
                         console.warn(data);
                     });
                 },
@@ -235,6 +236,7 @@
                         data: { 'loan_item_id': loanItemId },
                         dataType: 'json'
                     }).done(function(data) {
+                        notifyOnlyMessage('Devolvido com sucesso!', 'success');
                         console.warn(data);
                     });
                 },

@@ -191,6 +191,7 @@
                         data: { 'user_id': apiLoan.currentUser, 'loan_items': apiLoan.loanItems },
                         dataType: 'json'
                     }).done(function(data) {
+                        notifyOnlyMessage('Empréstimo realizado com sucesso!', 'success');
                         console.warn(data);
                     });
                 },
@@ -206,7 +207,8 @@
                                     apiLoan.removeRowTable(this, $(this).attr('data-copy-id'));
                                 });
                             } else {
-                                console.warn('O exemplar informado já faz parte da lista para empréstimo.');
+                                notifyOnlyMessageFast('Você já adicionou este exemplar.', 'notice');
+                                //console.warn('O exemplar informado já faz parte da lista para empréstimo.');
                             }
                         }
                     });
