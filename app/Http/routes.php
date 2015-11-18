@@ -33,3 +33,25 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api', 'middleware' => 'auth'], 
     Route::resource('/loans', 'LoansController');
     Route::resource('/copies', 'CopiesController');
 });
+
+Route::get('/add-fake-copies', function() {
+    $works = \App\Work::where('status', 'active')->get()->toArray();
+    $status = array('active', 'inactive');
+
+    for($i = 1; $i < 50; $i++) {
+        try {
+            DB::beginTransaction();
+            $copy = new \App\Copy();
+            $copy->work_id = $works[array_rand($works)]['id'];
+            $copy->number = $i;
+            $copy->status = $status[array_rand($status)];
+            $copy->save();
+            DB::commit();
+        } catch(Exception $e) {
+            DB::rollBack();
+        }
+
+    }
+
+    return array('ok');
+});
