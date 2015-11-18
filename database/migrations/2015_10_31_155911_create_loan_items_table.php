@@ -19,7 +19,7 @@ class CreateLoanItemsTable extends Migration
             $table->unsignedInteger('loan_id');
             $table->unsignedInteger('copy_id');
             $table->timestamp('return_prevision');
-            $table->timestamp('return_at')->nullable();
+            $table->timestamp('returned_at')->nullable();
             $table->timestamps();
         });
     }

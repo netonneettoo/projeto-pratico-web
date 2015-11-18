@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Validator;
 
 class RenewLoanItem extends Model
 {
-    //loan_item_id, return_prevision
-
     protected $fillable = [
         'loan_item_id',
         'return_prevision'

@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\Validator;
 
 class LoanItem extends Model
 {
-    //loan_id, copy_id, return_prevision
     protected $fillable = [
         'loan_id',
         'copy_id',
         'return_prevision',
-        'return_at',
+        'returned_at',
     ];
 
     protected $rules = [
@@ -33,7 +32,7 @@ class LoanItem extends Model
         $obj->loan_id           = $data['loan_id'];
         $obj->copy_id           = $data['copy_id'];
         $obj->return_prevision  = $data['return_prevision'];
-        if (@isset($data['return_at']) && $data['return_at'] != null) $obj->return_at = $data['return_at'];
+        if (@isset($data['returned_at']) && $data['returned_at'] != null) $obj->returned_at = $data['returned_at'];
         return $obj;
     }
 

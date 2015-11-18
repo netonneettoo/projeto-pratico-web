@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Copy;
 use App\LoanItem;
-use App\RenewLoanItem;
+use App\ReturnLoanItem;
+use DateTime;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class RenewLoanItemsController extends Controller
+class ReturnLoanItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,27 +41,42 @@ class RenewLoanItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $daysToAdd = 10;
+        $now = new DateTime();//new DateTime((new DateTime())->format('Y-m-d 00:00:00'));
 
         if ($request->user() != null) {
 
             if ($request->user()->hasRole(array('admin', 'librarian'))) {
                 $loanItem = LoanItem::findLoanItem($request->get('loan_item_id'));
 
-                $loanItem->return_prevision = date('Y-m-d H:i:s', strtotime($loanItem->return_prevision. ' + ' . $daysToAdd . ' days'));
+//                if (is_null($loanItem->returned_at) || empty($loanItem->returned_at) || $loanItem->returned_at == 'null' || $loanItem->returned_at == 'NULL') {
+//                    $dateDiff = $now->diff($now);
+//                } else {
+//                    $dt2 = new DateTime(substr($loanItem->returned_at, 0, 10) . ' 00:00:00');
+//                    $dateDiff = $now->diff(new DateTime($dt2->format('Y-m-d H:i:s')));
+//                }
 
-                if ($loanItem->save()) {
+//                return array($dateDiff->days, $dateDiff->invert);
 
-                    $renewLoanItem = (new RenewLoanItem())->store(array('loan_item_id' => $loanItem->id, 'return_prevision' => $loanItem->return_prevision));
+//                if ($dateDiff->invert == 0 && $dateDiff->days > 0) {
 
-                    if ($renewLoanItem->save()) {
-                        return $renewLoanItem;
+                    $loanItem->returned_at = $now->format('Y-m-d H:i:s');
+
+                    if ($loanItem->save()) {
+
+                        $copy = Copy::find($loanItem->copy_id);
+                        $copy->status = Copy::AVAILABLE;
+
+                        if ($copy->save()) {
+                            return array($loanItem);
+                        } else {
+                            return array('erro ao devolver o exemplar');
+                        }
                     } else {
-                        return array('erro ao salvar o renew loan item');
+                        return array('error ao salvar o loan item');
                     }
-                } else {
-                    return array('erro ao salvar o return prevision de loan item');
-                }
+//                } else {
+//                    return array('erro, data returned_at de loan item esta invalida');
+//                }
             } else {
                 return array('usuario nao possui permissao');
             }
