@@ -179,8 +179,8 @@
                                     html += '		' + apiUsers.dateToBR(data.loans[l].loanItems[i].return_prevision);
                                     html += '	</td>';
                                     html += '	<td>';
-                                    html += '		<a class="btn btn-xs btn-success" href="#renew" data-loan-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>';
-                                    html += '		<a class="btn btn-xs btn-danger" href="#return" data-loam-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+                                    html += '		<button class="btn btn-xs btn-success btn-renew-loan-item" data-loan-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>';
+                                    html += '		<button class="btn btn-xs btn-danger btn-return-loan-item" data-loan-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
                                     html += '	</td>';
                                     html += '</tr>';
                                 }
@@ -199,10 +199,43 @@
                     html += '</table>';
                     $(apiUsers.userCopiesPanel + ' .panel-body').html('');
                     $(apiUsers.userCopiesPanel + ' .panel-body').append(html);
+                    apiUsers.setClickActionButtons();
                 },
                 removeTableCopies: function() {
                     $(apiUsers.userCopiesPanel).hide("slow", function() {
                         $(apiUsers.userCopiesPanel + ' .panel-body').html('');
+                    });
+                },
+                setClickActionButtons: function() {
+                    $('.btn-renew-loan-item').click(function(evt) {
+                        evt.preventDefault();
+                        var loanItemId = $(this).attr('data-loan-item-id');
+                        apiUsers.submitAjaxRenewLoan(loanItemId);
+                    });
+                    $('.btn-return-loan-item').click(function(evt) {
+                        evt.preventDefault();
+                        var loanItemId = $(this).attr('data-loan-item-id');
+                        apiUsers.submitAjaxReturnLoan(loanItemId);
+                    });
+                },
+                submitAjaxRenewLoan: function(loanItemId) {
+                    $.ajax({
+                        url: '/admin/renew-loan-items',
+                        method: 'POST',
+                        data: { 'loan_item_id': loanItemId },
+                        dataType: 'json'
+                    }).done(function(data) {
+                        console.warn(data);
+                    });
+                },
+                submitAjaxReturnLoan: function(loanItemId) {
+                    $.ajax({
+                        url: '/admin/return-loan-items',
+                        method: 'POST',
+                        data: { 'loan_item_id': loanItemId },
+                        dataType: 'json'
+                    }).done(function(data) {
+                        console.warn(data);
                     });
                 },
                 init: function() {
