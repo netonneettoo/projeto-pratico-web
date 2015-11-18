@@ -43,41 +43,8 @@
                 </div>
             </div>
 
-            <div class="panel panel-default hide" id="user-copies">
-                <div class="panel-body">
-                    <div class="col-sm-12">
-                        <table class="table table-responsive" id="user-table-copies">
-                            <thead>
-                            {{--<tr>--}}
-                                {{--<td>Exemplar</td>--}}
-                                {{--<td>Previsão de Devolução</td>--}}
-                                {{--<td></td>--}}
-                            {{--</tr>--}}
-                            </thead>
-                            <tbody>
-                            {{--@for($i=0;$i<3;$i++)--}}
-                                {{--<tr>--}}
-                                    {{--<td>--}}
-                                        {{--Titulo: Introducao a informatica {{$i}} <br/>--}}
-                                        {{--Autor: Alberto Einstein--}}
-                                    {{--</td>--}}
-                                    {{--<td>--}}
-                                        {{--0{{$i}}/0{{$i}}/200{{$i}}--}}
-                                    {{--</td>--}}
-                                    {{--<td class="td-actions">--}}
-                                        {{--<button class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Renovar">--}}
-                                            {{--<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>--}}
-                                        {{--</button>--}}
-                                        {{--<button class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Devolver">--}}
-                                            {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
-                                        {{--</button>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                            {{--@endfor--}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="panel panel-default" id="panel-user-copies">
+                <div class="panel-body"></div>
             </div>
 
         </div>
@@ -87,12 +54,11 @@
 
 @section('scripts')
     <script>
+        var apiUsers;
         $(document).ready(function() {
-
-            var apiUsers = {
+            apiUsers = {
                 selectLoan: '.loan-search-user',
-                userCopies: $('#user-copies'),
-                userCopiesTable: $('#user-table-copies'),
+                userCopiesPanel: '#panel-user-copies',
                 btnNewLoan: $('#btn-new-loan'),
                 optionsSelectUsers: {
                     ajax: {
@@ -122,7 +88,7 @@
                     },
                     templateSelection: function(data) {
                         if (data.id && data.name) {
-                            apiUsers.setTableCopies(data.id);
+                            apiUsers.addTableCopies(data);
                             apiUsers.setFields('#' + data.id + ' - ' + data.name, apiUsers.countLoanedCopies(data.id), apiUsers.hasDebt(data.id));
                             apiUsers.setHrefBtnNew(data.id);
                             return data.id + ' - ' + data.name;
@@ -130,9 +96,6 @@
                         apiUsers.resetFields();
                         return 'Digite o nome de um usuário';
                     }
-                },
-                init: function() {
-                    $(apiUsers.selectLoan).select2(apiUsers.optionsSelectUsers);
                 },
                 setHrefBtnNew: function(id) {
                     var href = '/admin/loans/create';
@@ -148,8 +111,7 @@
                     return 'Possui débito com a faculdade.';
                 },
                 setFields: function(userName, loanedCopies, hasDebt) {
-                    apiUsers.userCopies.show("slow", function() {
-                        apiUsers.userCopies.removeClass('hide');
+                    $(apiUsers.userCopiesPanel).show("slow", function() {
                         $('#user-name').text(userName);
                         $('#loaned-copies').text(loanedCopies);
                         $('#has-debt').text(hasDebt);
@@ -159,26 +121,42 @@
                     });
                 },
                 resetFields: function() {
-                    apiUsers.userCopies.hide("slow", function() {
+                    $(apiUsers.userCopiesPanel).hide("slow", function() {
                         $('#user-name').text('');
                         $('#loaned-copies').text('');
                         $('#has-debt').text('');
-                        apiUsers.resetTableCopies();
-                        apiUsers.btnNewLoan.hide('slow', function() {
-                            apiUsers.btnNewLoan.removeClass('hide');
-                        });
+                        apiUsers.removeTableCopies();
+                        apiUsers.btnNewLoan.hide('slow');
                     });
                 },
-                setTableCopies: function(userId) {
+                addTableCopies: function(data) {
+                    var html = '';
+                    html += '<table class="table table-condensed table-striped table-hover">';
+                    html += '   <thead>';
+                    html += '       <tr>';
+                    html += '           <th>';
+                    html += '               ';
+                    html += '           </th>';
+                    html += '       </tr>';
+                    html += '   </thead>';
+                    html += '   <tbody>';
+                    html += '       <tr>';
+                    html += '           <td>';
+                    html += '               ';
+                    html += '           </td>';
+                    html += '       </tr>';
+                    html += '   </tbody>';
+                    html += '</table>';
+                    $(apiUsers.userCopiesPanel + ' .panel-body').append(html);
+                },
+                removeTableCopies: function() {
                     //
                 },
-                resetTableCopies: function() {
-                    //
-                },
+                init: function() {
+                    $(apiUsers.selectLoan).select2(apiUsers.optionsSelectUsers);
+                }
             };
-
             apiUsers.init();
-
         });
     </script>
 @endsection

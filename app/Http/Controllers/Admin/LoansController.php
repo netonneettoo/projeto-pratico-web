@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Copy;
 use App\Loan;
 use App\LoanItem;
 use App\User;
