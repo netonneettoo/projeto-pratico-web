@@ -28,6 +28,11 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Telephone</th>
+                        <th>Cellphone</th>
+                        <th>City</th>
+                        <th>Street</th>
+                        <th>Cep</th>
+                        <th>Uf</th>
                         <th width="170px"></th>
                     </tr>
                 </thead>
@@ -38,6 +43,11 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->telephone }}</td>
+                                <td>{{ $user->cellphone }}</td>
+                                <td>{{ $user->city }}</td>
+                                <td>{{ $user->street }}</td>
+                                <td>{{ $user->cep }}</td>
+                                <td>{{ $user->uf }}</td>
                                 <td class="text-right">
                                     <a href="/admin/users/{{ $user->id }}" class="btn btn-default btn-xs" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Visualizar

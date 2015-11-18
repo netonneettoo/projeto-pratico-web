@@ -17,6 +17,31 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('cellphone', 'Cellphone:', ['class' => 'control-label']) !!}
+    {!! Form::text('cellphone', $user->cellphone, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('city', 'City:', ['class' => 'control-label']) !!}
+    {!! Form::text('city', $user->city, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('street', 'Street:', ['class' => 'control-label']) !!}
+    {!! Form::text('street', $user->street, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('cep', 'Cep:', ['class' => 'control-label']) !!}
+    {!! Form::text('cep', $user->cep, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('uf', 'Uf:', ['class' => 'control-label']) !!}
+    {!! Form::text('uf', $user->uf, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('password', 'Password:', ['class' => 'control-label']) !!}
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>
