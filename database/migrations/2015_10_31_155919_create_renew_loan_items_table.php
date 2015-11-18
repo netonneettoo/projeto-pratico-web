@@ -18,7 +18,6 @@ class CreateRenewLoanItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('loan_item_id');
             $table->timestamp('return_prevision');
-            $table->timestamp('renewed_at');
             $table->timestamps();
 
             $table->foreign('loan_item_id')->references('id')->on('loan_items');
