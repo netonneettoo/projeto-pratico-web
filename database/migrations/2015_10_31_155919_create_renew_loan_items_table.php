@@ -16,12 +16,12 @@ class CreateRenewLoanItemsTable extends Migration
     {
         Schema::create('renew_loan_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('loan_id');
+            $table->unsignedInteger('loan_item_id');
             $table->timestamp('return_prevision');
             $table->timestamp('renewed_at');
             $table->timestamps();
 
-            $table->foreign('loan_id')->references('id')->on('loans');
+            $table->foreign('loan_item_id')->references('id')->on('loan_items');
         });
     }
 

@@ -16,11 +16,11 @@ class CreateReturnLoanItemsTable extends Migration
     {
         Schema::create('return_loan_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('loan_id');
+            $table->unsignedInteger('loan_item_id');
             $table->timestamp('returned_at');
             $table->timestamps();
 
-            $table->foreign('loan_id')->references('id')->on('loans');
+            $table->foreign('loan_item_id')->references('id')->on('loan_items');
         });
     }
 
