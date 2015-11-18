@@ -3,11 +3,38 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class Loan extends Model
 {
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
+
+    protected $fillable = [
+        'user_id',
+        'loaned_at',
+        'status'
+    ];
+
+    protected $rules = [
+        'user_id' => 'required|integer'
+    ];
+
+    protected $messages = [
+        //
+    ];
+
+    public function validate($data) {
+        return Validator::make($data, $this->rules, $this->messages);
+    }
+
+    public function store($data) {
+        $obj = new Loan();
+        $obj->user_id   = $data['user_id'];
+        $obj->loaned_at = date('Y-m-d H:i:s');
+        $obj->status    = Loan::STATUS_ACTIVE;
+        return $obj;
+    }
 
     public function loanItems()
     {

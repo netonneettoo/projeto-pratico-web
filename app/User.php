@@ -83,13 +83,14 @@ class User extends Model implements AuthenticatableContract,
         $obj = new User();
         $obj->name = $data['name'];
         $obj->email = $data['email'];
-        $obj->telephone = bcrypt('telephone'); // set default password
-        $obj->cellphone = bcrypt('cellphone'); // set default password
-        $obj->password = bcrypt('password'); // set default password
-        $obj->city = bcrypt('city'); // set default password
-        $obj->street = bcrypt('street'); // set default password
-        $obj->cep = bcrypt('cep'); // set default password
-        $obj->uf = bcrypt('uf'); // set default password
+        $obj->password = bcrypt('default'); // set default password
+
+        if (@isset($data['telephone']) && $data['telephone'] != null) $obj->telephone = $data['telephone'];
+        if (@isset($data['cellphone']) && $data['cellphone'] != null) $obj->cellphone = $data['cellphone'];
+        if (@isset($data['city']) && $data['city'] != null) $obj->city = $data['city'];
+        if (@isset($data['street']) && $data['street'] != null) $obj->street = $data['street'];
+        if (@isset($data['cep']) && $data['cep'] != null) $obj->cep = $data['cep'];
+        if (@isset($data['uf']) && $data['uf'] != null) $obj->uf = $data['uf'];
         return $obj;
     }
 
@@ -97,13 +98,14 @@ class User extends Model implements AuthenticatableContract,
         $obj = User::find($id);
         if (@isset($data['name']) && $data['name'] != null) $obj->name = $data['name'];
         if (@isset($data['email']) && $data['email'] != null) $obj->email = $data['email'];
-        if (@isset($data['telephone']) && $data['telephone'] != null) $obj->telephone = bcrypt($data['telephone']);
-        if (@isset($data['cellphone']) && $data['cellphone'] != null) $obj->cellphone = bcrypt($data['cellphone']);
         if (@isset($data['password']) && $data['password'] != null) $obj->password = bcrypt($data['password']);
-        if (@isset($data['city']) && $data['city'] != null) $obj->city = bcrypt($data['city']);
-        if (@isset($data['street']) && $data['street'] != null) $obj->street = bcrypt($data['street']);
-        if (@isset($data['cep']) && $data['cep'] != null) $obj->cep = bcrypt($data['cep']);
-        if (@isset($data['uf']) && $data['uf'] != null) $obj->uf = bcrypt($data['uf']);
+
+        if (@isset($data['telephone']) && $data['telephone'] != null) $obj->telephone = $data['telephone'];
+        if (@isset($data['cellphone']) && $data['cellphone'] != null) $obj->cellphone = $data['cellphone'];
+        if (@isset($data['city']) && $data['city'] != null) $obj->city = $data['city'];
+        if (@isset($data['street']) && $data['street'] != null) $obj->street = $data['street'];
+        if (@isset($data['cep']) && $data['cep'] != null) $obj->cep = $data['cep'];
+        if (@isset($data['uf']) && $data['uf'] != null) $obj->uf = $data['uf'];
         return $obj;
     }
 

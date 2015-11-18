@@ -148,23 +148,23 @@
                     return 'Possui débito com a faculdade.';
                 },
                 setFields: function(userName, loanedCopies, hasDebt) {
-                    apiUsers.userCopies.slideDown("slow", function() {
+                    apiUsers.userCopies.show("slow", function() {
                         apiUsers.userCopies.removeClass('hide');
                         $('#user-name').text(userName);
                         $('#loaned-copies').text(loanedCopies);
                         $('#has-debt').text(hasDebt);
-                        apiUsers.btnNewLoan.slideDown('slow', function() {
+                        apiUsers.btnNewLoan.show('slow', function() {
                             apiUsers.btnNewLoan.removeClass('hide');
                         });
                     });
                 },
                 resetFields: function() {
-                    apiUsers.userCopies.slideUp("slow", function() {
+                    apiUsers.userCopies.hide("slow", function() {
                         $('#user-name').text('');
                         $('#loaned-copies').text('');
                         $('#has-debt').text('');
                         apiUsers.resetTableCopies();
-                        apiUsers.btnNewLoan.slideUp('slow', function() {
+                        apiUsers.btnNewLoan.hide('slow', function() {
                             apiUsers.btnNewLoan.removeClass('hide');
                         });
                     });

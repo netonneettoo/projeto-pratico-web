@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Loan;
+use App\LoanItem;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,6 @@ class LoansController extends Controller
     public function create(Request $request)
     {
         $id = intval($request->get('u'));
-        //$id = Crypt::decrypt(intval($request->get('u')));
         $user = User::find($id);
         if ($user) {
             $loan = new Loan();
@@ -48,7 +48,32 @@ class LoansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->get('user_id'));
+        if ($user == null) {
+            return 'Usuário não existe.';
+        } else {
+            if ($user->hasRole(['employee', 'teacher', 'student'])) {
+                // TODO Verificar se o usuário tem débito com a biblioteca/faculdade
+                // TODO Verificar quantos examplares o usuário pode alugar
+                // TODO Verificar o status do usuário
+                $loan = (new Loan())->store($request->all());
+                $loan->save();
+
+                $loanItems = array();
+                foreach($request->get('loan_items') as $copyId) {
+                    $loanItem = (new LoanItem())->store(array('loan_id' => $loan->id, 'copy_id' => intval($copyId), 'return_prevision' => date('2015-12-25 01:02:03')));
+                    if ($loanItem->save()) {
+                        $loanItems[] = $loanItem;
+                    }
+                }
+
+                // pode alugar
+                return array('success', $loan, $loanItems);
+            } else {
+                // nao pode alugar
+                return array('error');
+            }
+        }
     }
 
     /**

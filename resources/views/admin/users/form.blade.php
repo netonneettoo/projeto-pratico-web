@@ -12,6 +12,11 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('telephone', 'Telephone:', ['class' => 'control-label']) !!}
+    {!! Form::text('telephone', $user->telephone, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('password', 'Password:', ['class' => 'control-label']) !!}
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>

@@ -16,12 +16,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password', 60);
             $table->string('telephone', 15)->nullable();
             $table->string('cellphone', 15)->nullable();
-            $table->string('password', 60);
-            $table->string('city', 30)->nullable();
-            $table->string('street', 60)->nullable();
-            $table->string('cep', 10)->nullable();
+            $table->string('city')->nullable();
+            $table->string('street')->nullable();
+            $table->string('cep', 9)->nullable();
             $table->string('uf', 2)->nullable();
             $table->enum('status', array(1,2,3))->nullable();
             $table->rememberToken();

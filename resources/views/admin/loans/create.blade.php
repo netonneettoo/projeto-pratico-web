@@ -38,8 +38,8 @@
                                 <option value="" selected="selected"></option>
                             </select>
                             <div style="margin-top:20px;float:right;">
-                                <button class="btn btn-xs btn-success">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Realizar o Empréstimo
+                                <button class="btn btn-xs btn-success" id="submit-add-copy">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar
                                 </button>
                             </div>
                         </div>
@@ -52,39 +52,18 @@
             </form>
 
 
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="panel-table-loan" style="display:none;">
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <td>Exemplar</td>
-                                    <td>Previsao de Devolucao</td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for($i=0;$i<3;$i++)
-                                    <tr>
-                                        <td>
-                                            Titulo: Introducao a informatica {{$i}} <br/>
-                                            Autor: Alberto Einstein
-                                        </td>
-                                        <td>
-                                            0{{$i}}/0{{$i}}/200{{$i}}
-                                        </td>
-                                        <td class="td-actions">
-                                            <button class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Renovar">
-                                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                            </button>
-                                            <button class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Devolver">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endfor
-                            </tbody>
+                        <table class="table table-responsive" id="table-loan-items">
+                            <thead></thead>
+                            <tbody></tbody>
                         </table>
+                        <div class="text-right">
+                            <button class="btn btn-xs btn-success" id="submit-do-loan">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Finalizar o Empréstimo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,10 +75,19 @@
 
 @section('scripts')
     <script>
+
         $(document).ready(function() {
 
             var apiLoan = {
                 selectLoan: '.loan-search-copies',
+                submitAddCopy: $('#submit-add-copy'),
+                submitDoLoan: $('#submit-do-loan'),
+                tableLoanItems: '#table-loan-items',
+                btnActionRemove: '.btn-action-remove',
+                panelTableLoan: $('#panel-table-loan'),
+                currentUser: parseInt('{{ $user->id }}'),
+                currentCopy: null,
+                loanItems: [],
                 optionsSelectUsers: {
                     ajax: {
                         url: '/api/copies',
@@ -122,7 +110,8 @@
                     minimumInputLength: 1,
                     templateResult: function(data) {
                         if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
-                            return 'id=' + data.id + ' - title=' + data.work.title + ' - publication_year=' + data.work.publication_year + ' - edition=' + data.work.edition + ' - ' + data.work.publisher_id;
+                            currentCopy = data;
+                            return 'id:' + data.id + ' - title:' + data.work.title + ' - publication_year:' + data.work.publication_year + ' - edition:' + data.work.edition + ' - ' + data.work.publisher_id;
                         }
                         return '';
                     },
@@ -130,11 +119,101 @@
                         if (data.id && data.work.title && data.work.publication_year && data.work.edition && data.work.publisher_id) {
                             return data.id + ' - ' + data.work.title + ' - ' + data.work.publication_year + ' - ' + data.work.edition + ' - ' + data.work.publisher_id;
                         }
-                        return 'Digite o nome de um usuário';
+                        return 'Digite o código de um exemplar';
                     }
+                },
+                addLoanItem: function(id) {
+                    if (apiLoan.loanItems.indexOf(id) == -1) {
+                        apiLoan.loanItems.push(id);
+                        return true;
+                    }
+                    return false;
+                },
+                removeLoanItem: function(id) {
+                    apiLoan.loanItems = apiLoan.loanItems.filter(function(eachItemId) {
+                        if (id != eachItemId) {
+                            return true;
+                        }
+                        return false;
+                    });
+                },
+                addRowTable: function(id, title, author, returnPrevision) {
+                    var html = '';
+                    html += '<tr>';
+                    html += '   <td>';
+                    html += '       Title: ' + title + '<br/>';
+                    html += '       Author: ' + author;
+                    html += '   </td>';
+                    html += '   <td>';
+                    html += '       ' + returnPrevision;
+                    html += '   </td>';
+                    html += '   <td class="td-actions">';
+                    html += '       <button class="btn btn-xs btn-danger btn-action-remove" data-copy-id="' + id + '" data-toggle="tooltip" data-placement="top" title="" data-original-title="Devolver"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+                    html += '   </td>';
+                    html += '</td>';
+                    if (apiLoan.loanItems.length == 1) {
+                        apiLoan.addHeadersTable();
+                        apiLoan.panelTableLoan.show('slow');
+                    }
+                    $(apiLoan.tableLoanItems + ' tbody').append(html);
+
+                },
+                removeRowTable: function(btn, dataCopyId) {
+                    $(btn).parent().parent().remove();
+                    apiLoan.removeLoanItem(dataCopyId);
+                    if (apiLoan.loanItems.length == 0) {
+                        apiLoan.panelTableLoan.hide('slow');
+                        apiLoan.removeHeadersTable();
+                    }
+                },
+                addHeadersTable: function() {
+                    $(apiLoan.tableLoanItems + ' thead').show('slow', function() {
+                        var html = '';
+                        html += '<tr>';
+                        html += '   <th>';
+                        html += '       Exemplar';
+                        html += '   </th>';
+                        html += '   <th>';
+                        html += '       Previsão de devolução';
+                        html += '   </th>';
+                        html += '   <th></th>';
+                        html += '</tr>';
+                        $(this).append(html);
+                    });
+                },
+                removeHeadersTable: function() {
+                    $(apiLoan.tableLoanItems + ' thead').hide('slow').html('');
+                },
+                submitAjaxLoan: function() {
+                    $.ajax({
+                        url: '/admin/loans',
+                        method: 'POST',
+                        data: { 'user_id': apiLoan.currentUser, 'loan_items': apiLoan.loanItems },
+                        dataType: 'json'
+                    }).done(function(data) {
+                        console.warn(data);
+                    });
                 },
                 init: function() {
                     $(apiLoan.selectLoan).select2(apiLoan.optionsSelectUsers);
+                    apiLoan.submitAddCopy.click(function(evt) {
+                        evt.preventDefault();
+                        if (currentCopy != null) {
+                            if (apiLoan.addLoanItem(currentCopy.id)) {
+                                apiLoan.addRowTable(currentCopy.id, currentCopy.work.title, 'Author ' + currentCopy.work.id, '00/00/0000');
+                                $(apiLoan.btnActionRemove).click(function(evt) {
+                                    evt.preventDefault();
+                                    apiLoan.removeRowTable(this, $(this).attr('data-copy-id'));
+                                });
+                            } else {
+                                console.warn('O exemplar informado já faz parte da lista para empréstimo.');
+                            }
+                        }
+                    });
+                    apiLoan.submitDoLoan.click(function(evt) {
+                        evt.preventDefault();
+                        apiLoan.submitAjaxLoan();
+                    });
                 }
             };
 
