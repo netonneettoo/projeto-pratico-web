@@ -17,7 +17,7 @@ class CopyTableSeeder extends Seeder
         for($i = 0; $i < 100; $i++) {
             $copy = new \App\Copy();
             $copy->work_id = $works[array_rand($works)]['id'];
-            $copy->number = rand(1, 999);
+            $copy->number = ($i + 1);
             $copy->status = $status[array_rand($status)];
             $copy->save();
         }
