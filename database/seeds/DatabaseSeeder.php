@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkTypeTableSeeder::class);
         $this->call(PublisherTableSeeder::class);
         $this->call(WorkTableSeeder::class);
+        $this->call(CopyTableSeeder::class);
 
         Model::reguard();
     }
