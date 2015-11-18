@@ -8,102 +8,110 @@
     <div class="container">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info" >
-                <div class="panel-heading">
-                    <div class="panel-title">Cadastro de Usuário</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
-                </div>
 
                 <div style="padding-top:30px" class="panel-body" >
 
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
+                    <div class="panel-heading">
+                        <div class="panel-title">Cadastro de Usuário</div>
+                    </div>
                     <form class="form-horizontal">
                         <fieldset>
-                            <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="textinput">Nome</label>
-                                <div class="controls">
-                                    <input id="textinput" name="textinput" type="text" placeholder="Nome" class="input-xlarge"><br>
-                                    <label class="control-label" for="textinput">Curso e Semestre</label>
 
-                                    <div class="controls">
-                                        <input id="textinput" name="textinput" type="text" placeholder="curso" class="input-xlarge">
-                                        <input id="number" name="number" type="text" placeholder="Semestre" class="input-xlarge">
-                                    </div>
-
+                            <!-- id-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ativo">Matricula</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="id" type="text" placeholder="2011200045" class="form-control input-md" required="">
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="passwordinput">Senha</label>
-                                <div class="controls">
-                                    <input id="passwordinput" name="passwordinput" type="password" placeholder="entre com a senha" class="input-xlarge">
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
-                                <label class="control-label" for="textinput">Data de Nascimento</label>
-                                <div class="controls">
-                                    <input id="date" name="date" type="date" placeholder="Nome" class="input-xlarge"><br>
-
-                                    <label class="control-label" for="textinput">Email</label>
-                                    <div class="controls">
-                                        <input id="textinput" name="textinput" type="email" placeholder="Email@mail.com.br" class="input-xlarge">
-                                    </div>
+                            <!-- Text Nome-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nome">Nome</label>
+                                <div class="col-md-5">
+                                    <input id="nome" name="nome" type="text" placeholder="Nome Usúario" class="form-control input-md" required="">
 
                                 </div>
                             </div>
-
-                            <!-- Button Drop Down -->
-                            <div class="control-group">
-                                <label class="control-label" for="buttondropdown">Grupo de Usuário</label>
-                                <div class="controls">
-                                    <div class="input-append">
-                                        <input id="buttondropdown" name="buttondropdown" class="input-xlarge" placeholder="Grupo de Usuário" type="text">
-                                        <div class="btn-group">
-                                            <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                                Action
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">ALuno</a></li>
-                                                <li><a href="#">Bibliotecário</a></li>
-                                                <li><a href="#">Professor</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            <!-- Text Email-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="email">E-mail</label>
+                                <div class="col-md-5">
+                                    <input id="email" name="email" type="text" placeholder="email@mail.com" class="form-control input-md" required="">
+                                    <span class="help-block">teste@seudominio.com</span>
+                                </div>
+                            </div>
+                            <!-- telefone fixo (inline) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ativo">Telefone fixo</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="telephone" type="text" placeholder="(85)3301-1000" class="form-control input-md" required="">
                                 </div>
                             </div>
 
-                            <!-- Multiple Radios -->
-                            <div class="control-group">
-                                <label class="control-label" for="radios">Sexo</label>
-                                <div class="controls">
-                                    <label class="radio" for="radios-0">
-                                        <input type="radio" name="radios" id="radios-0" value="Masculino" checked="checked">
-                                        Masculino
-                                    </label>
-                                    <label class="radio" for="radios-1">
-                                        <input type="radio" name="radios" id="radios-1" value="Femenino">
-                                        Femenino
-                                    </label>
+                            <!-- fone cel (inline) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ativo">Nº de Celular</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="cellphone" type="text" placeholder="(85) 98888.8888" class="form-control input-md" required="">
                                 </div>
                             </div>
 
-                            <!-- Textarea -->
-                            <div class="control-group">
-                                <label class="control-label" for="textarea">Descrição</label>
-                                <div class="controls">
-                                    <textarea id="textarea" name="textarea">Entre com as descrições</textarea>
+                            <!-- Password input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="senha">Senha</label>
+                                <div class="col-md-2">
+                                    <input id="senha" name="senha" type="password" placeholder="******" class="form-control input-md" required="">
+                                    <span class="help-block">No mínimo 6 caracteres</span>
                                 </div>
                             </div>
 
+                            <!-- Cidade -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="empresa">Cidade</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="cidade" type="text" placeholder="Cidade" class="form-control input-md">
+                                </div>
+                            </div>
+
+                            <!-- UF-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="usuario">UF</label>
+                                <div class="col-md-4">
+                                    <input id="usuario" name="uf" type="text" placeholder="UF" class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <!-- Logradouro-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="usuario">Logradouro</label>
+                                <div class="col-md-4">
+                                    <input id="usuario" name="Street" type="text" placeholder="Bairro" class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <!-- Cep-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="usuario">Cep</label>
+                                <div class="col-md-4">
+                                    <input id="usuario" name="cep" type="text" placeholder="60000-800" class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <!-- status Financeiro-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="usuario">Status Financeiro</label>
+                                <div class="col-md-4">
+                                    <input id="usuario" name="status" type="text" placeholder="Dívida?" class="form-control input-md">
+                                </div>
+                            </div>
                             <!-- Button -->
-                            <div class="control-group">
-                                <label class="control-label" for="singlebutton"></label>
-                                <div class="controls">
-                                    <button id="singlebutton" name="singlebutton" class="btn btn-success">Cadastrar</button>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="enviar"></label>
+                                <div class="col-md-4">
+                                    <button id="enviar" name="enviar" class="btn btn-primary">Enviar</button>
                                 </div>
                             </div>
 
@@ -111,6 +119,8 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
 
 @endsection
 
