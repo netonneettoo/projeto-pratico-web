@@ -170,19 +170,19 @@
                             html += '<tbody>';
                             if (data.loans[l].loanItems.length > 0) {
                                 for (var i = 0; i < data.loans[l].loanItems.length; i++) {
-                                    html += '		<tr>';
-                                    html += '			<td>';
-                                    html += '				<b>Título</b>: ' + data.loans[l].loanItems[i].copy.work.title + '<br/>';
-                                    html += '				<b>Edição</b>: ' + data.loans[l].loanItems[i].copy.work.edition;
-                                    html += '			</td>';
-                                    html += '			<td>';
-                                    html += '				' + apiUsers.dateToBR(data.loans[l].loanItems[i].return_prevision);
-                                    html += '			</td>';
-                                    html += '			<td>';
-                                    html += '				<a class="btn btn-xs btn-success" href="#renew" data-copy-id="' + data.loans[l].loanItems[i].copy.id + '"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>';
-                                    html += '				<a class="btn btn-xs btn-danger" href="#return" data-copy-id="' + data.loans[l].loanItems[i].copy.id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
-                                    html += '			</td>';
-                                    html += '		</tr>';
+                                    html += '<tr>';
+                                    html += '	<td>';
+                                    html += '		<b>Título</b>: ' + data.loans[l].loanItems[i].copy.work.title + '<br/>';
+                                    html += '		<b>Edição</b>: ' + data.loans[l].loanItems[i].copy.work.edition;
+                                    html += '	</td>';
+                                    html += '	<td>';
+                                    html += '		' + apiUsers.dateToBR(data.loans[l].loanItems[i].return_prevision);
+                                    html += '	</td>';
+                                    html += '	<td>';
+                                    html += '		<a class="btn btn-xs btn-success" href="#renew" data-loan-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>';
+                                    html += '		<a class="btn btn-xs btn-danger" href="#return" data-loam-item-id="' + data.loans[l].loanItems[i].id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+                                    html += '	</td>';
+                                    html += '</tr>';
                                 }
                             } else {
                                 html += '<tr>';
