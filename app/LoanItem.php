@@ -46,4 +46,22 @@ class LoanItem extends Model
     {
         return $this->belongsTo('App\Copy');
     }
+
+    public static function findLoanItem($id) {
+        $loanItem = LoanItem::find($id);
+
+//        $loanItem->loan = $loanItem->loan()->first();
+//        unset($loanItem->loan_id);
+//
+//        $loanItem->loan->user = $loanItem->loan->user()->first();
+//        unset($loanItem->loan->user_id);
+//
+//        $loanItem->copy = $loanItem->copy()->first();
+//        unset($loanItem->copy_id);
+//
+//        $loanItem->copy->work = $loanItem->copy->work()->first();
+//        unset($loanItem->copy->work_id);
+
+        return $loanItem;
+    }
 }
