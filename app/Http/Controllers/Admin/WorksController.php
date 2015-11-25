@@ -134,11 +134,7 @@ class WorksController extends Controller
 
         $work = Work::find($id);
 
-        
-
         $work = $work->fill($request->all());
-
-        dd($work);
 
         if (! $work->save()) {
             return redirect('/admin/works/'.$id.'/edit')
