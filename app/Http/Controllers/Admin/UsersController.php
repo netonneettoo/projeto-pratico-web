@@ -40,7 +40,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = (new User)->validate($request->all());
+        $validation = (new User())->validate($request->all());
 
         if ($validation->fails()) {
             return redirect('/admin/users/create')

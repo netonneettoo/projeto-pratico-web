@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
     Route::resource('/loans', 'LoansController');
     Route::resource('/renew-loan-items', 'RenewLoanItemsController');
     Route::resource('/return-loan-items', 'ReturnLoanItemsController');
+    Route::resource('/works', 'WorksController');
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api', 'middleware' => 'auth'], function() {

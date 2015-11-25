@@ -55,6 +55,15 @@
                                 <li><a href="/admin/loans">Listar</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Obras <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/works/create">Nova</a></li>
+                                <li><a href="/admin/works">Listar</a></li>
+                            </ul>
+                        </li>
                     @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
